@@ -12,7 +12,7 @@ class CodeGenerator:
             cursor = self.db_connect.cursor()
             cursor.execute("USE hacknotts")
             cursor.execute("SHOW TABLES")
-            self.cursor.execute("SELECT * FROM auth_codes")
+            cursor.execute("SELECT * FROM auth_codes")
             self.auth_codes = cursor.fetchall()
             print(auth_codes)
             #self.target_user = [user for user in self.auth_codes if user[0] == ID]
