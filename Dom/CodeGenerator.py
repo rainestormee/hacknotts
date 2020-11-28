@@ -67,7 +67,7 @@ if __name__ == "__main__":
     CD = CodeGenerator(1)
     #CD.update_auth_code()
     for user in CD.auth_codes:
-        print(user + "\n" + user[0] + ", " + user[3])
+        print(str(user) + "\n" + str(user[0]) + ", " + str(user[3]))
         
 
 # create table auth_codes (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, user_id INT NOT NULL, code VARCHAR(6) NOT NULL, used TINYINT(1) DEFAULT 0 NOT NULL);
