@@ -59,7 +59,7 @@ class CodeGenerator:
             cursor = self.db_connect.cursor(buffered=True)
             cursor.execute(to_execute, val)
             self.db_connect.commit
-        except (mysql.connector.errorcode):
+        except:
             print("Syntax Wrong")
             
             
