@@ -13,7 +13,7 @@ class CodeGenerator:
             cursor.execute("SELECT * FROM auth_codes;")
             self.auth_codes = cursor.fetchall()
             #self.target_user = [user for user in self.auth_codes if user[0] == ID]
-            #self.target_user = self.auth_codes[ID-1]
+            self.target_user = self.auth_codes[ID-1]
             for (codeid, userid, code, used) in self.auth_codes:
                 print(codeid, code)
 
@@ -29,10 +29,9 @@ class CodeGenerator:
             return True
 
     def generate_code(self):
-        r = random()
         code = ""
         for i in range(5):
-            rand_num = r.randint(0, 9)
+            rand_num = random.randint(0, 9)
             code += str(rand_num)
         return code
     
@@ -57,9 +56,10 @@ class CodeGenerator:
                 '''
         val = (code, ID)
         try: 
-            self.cursor.execute(to_execute, val)
+            cursor = self.db_connect.cursor(buffered=True)
+            cursor.execute(to_execute, val)
             self.db_connect.commit
-        except (mysql.connector.errorcode):
+        except:
             print("Syntax Wrong")
             
             
