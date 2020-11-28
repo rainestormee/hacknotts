@@ -9,14 +9,14 @@ class CodeGenerator:
         self.ID = ID
         try:
             self.db_connect = mysql.connector.connect(user="root", password="alexandre", host="127.0.0.1", database="hacknotts")
-            cursor = self.db_connect.cursor()
+            cursor = self.db_connect.cursor(buffered=True)
             cursor.execute("USE hacknotts")
             cursor.execute("SHOW TABLES")
             cursor.execute("SELECT * FROM auth_codes")
             self.auth_codes = cursor.fetchall()
-            print(auth_codes)
+            print(self.auth_codes)
             #self.target_user = [user for user in self.auth_codes if user[0] == ID]
-            self.target_user = self.auth_codes[ID-1]
+            #self.target_user = self.auth_codes[ID-1]
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
 
