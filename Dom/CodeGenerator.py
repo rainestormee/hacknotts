@@ -64,7 +64,7 @@ class CodeGenerator:
 if __name__ == "__main__":
     CD = CodeGenerator(1)
     #CD.update_auth_code()
-    for user in CD.get_auth_codes_table():
+    for user in CD.auth_codes:
         print(user + "\n" + user[0] + ", " + user[3])
         
 
