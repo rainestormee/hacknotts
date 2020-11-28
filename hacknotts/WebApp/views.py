@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
 from .api import *
-from ..Authentication.models import *
+
 
 # Create your views here.
 @login_required
