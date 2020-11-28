@@ -26,10 +26,9 @@ class CodeGenerator:
             return True
 
     def generate_code(self):
-        r = random()
         code = ""
         for i in range(5):
-            rand_num = r.randint(0, 9)
+            rand_num = random.randint(0, 9)
             code += str(rand_num)
         return code
     
