@@ -1,4 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 
 import random
 from .forms import authCodeForm
@@ -23,9 +25,21 @@ def verification(request):
             if authCodeRecieved == authCode:
                 # request.user.
                 print("shh")
-            return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect(' ')
     # if a GET (or any other method) we'll create a blank form
     else:
         form = authCodeForm()
 
     return render(request, 'name.html', {'form': form})
+
+def sign_up(request):
+    context = {}
+    form = UserCreationForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            user = form.save()
+            login(request,user)
+            return HttpResponseRedirect(' ')
+    context['form']=form
+    return render(request,'registration/sign_up.html',context)
+

@@ -5,4 +5,4 @@ from django.contrib.auth.models import User
 class Person(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    user = models.ForeignKey(User, unique=False)
+    user = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
