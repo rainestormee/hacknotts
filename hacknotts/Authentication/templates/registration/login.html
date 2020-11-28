@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<header>
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+</header>
+<head>
+    <title>Login</title>
+    {% include "StaticPages/navbar.html" %}
+</head>
+<body>
+<section class="section">
+    <div class="container">
+         <form id="login-form" method="post" >
+         {% csrf_token %}
+         {% load widget_tweaks %}
+            <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                    {{form.username| add_class:"input"}}
+                    <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+        </span>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left">
+                    {{form.password| add_class:"input"}}
+                    <span class="icon is-small is-left">
+          <i class="fas fa-lock"></i>
+        </span>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <button class="button is-success">
+                        Login
+                    </button>
+                </p>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
