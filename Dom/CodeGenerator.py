@@ -15,7 +15,7 @@ class CodeGenerator:
         
             
     dbconnect = mysql.connector.connect(user = "root", password = "alexandre", host = "127.0.0.1", database = "hacknotts")    
-    response = requests.get(dbconnect)
+    #response = requests.get(dbconnect)
 
 gen = CodeGenerator(1)
 
