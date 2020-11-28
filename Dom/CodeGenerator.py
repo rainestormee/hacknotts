@@ -5,16 +5,17 @@ class CodeGenerator:
         
     def __init__(self, id):
         self.id = id
-        dbconnect = mysql.connector.connect(user = "root", password = "alexandre", host = "127.0.0.1", database = "hacknotts")
-        cursor = dbconnect.cursor()
-        cursor.execute("SELECT * FROM auth_codes")
-        self.auth_codes = cursor.fetchall()
         
+    dbconnect = mysql.connector.connect(user = "root", password = "alexandre", host = "127.0.0.1", database = "hacknotts")
+    cursor = dbconnect.cursor()
+    cursor.execute("SELECT * FROM auth_codes")
+    auth_codes = cursor.fetchall()
         
+    for c in auth_codes:
+        print(c)
     
         
-    # dbconnect = mysql.connector.connect(user = "root", password = "alexandre", host = "127.0.0.1", database = "hacknotts")
-    # cursor = dbconnect.cursor()
+
    
     # cursor.execute("SELECT * FROM users")
     
@@ -26,10 +27,10 @@ class CodeGenerator:
         
 
         
-CD = CodeGenerator(1)
+# CD = CodeGenerator(1)
 
-for c in CD.auth_codes:
-    print(c)
+# for c in CD.auth_codes:
+#     print(c)
     
 
    
