@@ -17,12 +17,12 @@ class CodeGenerator:
         
 
    
-    # cursor.execute("SELECT * FROM users")
+    cursor.execute("SELECT * FROM users")
     
-    # users = cursor.fetchall()
+    users = cursor.fetchall()
     
-    # for u in users:
-    #     print(u[0])
+    for u in users:
+        print(u)
 
         
 
