@@ -15,6 +15,8 @@ class CodeGenerator:
             print(self.auth_codes)
             #self.target_user = [user for user in self.auth_codes if user[0] == ID]
             #self.target_user = self.auth_codes[ID-1]
+            for (codeid, userid, code, used) in self.auth_codes:
+                print(codeid, code)
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
 
