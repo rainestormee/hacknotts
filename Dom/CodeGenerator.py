@@ -10,32 +10,30 @@ class CodeGenerator:
         cursor.execute("SELECT * FROM auth_codes")
         self.auth_codes = cursor.fetchall()
         self.target_user = auth_codes.index(ID)
-        
-    #    self.generated_code = create_code()
+        #    self.generated_code = create_code()
     
     def generate_code():
         r = random()
         code = ""
         for i in range(5):
             rand_num = r.randint(0, 9)
-            code + str(rand_num)
+            code += str(rand_num)
         return code
     
     def check_code(self, code):
         if code in self.target_user[2]:
             return False
             
-        
-    #def search_id(self.id):
-        
-    
-    
-    for c in get_auth_codes_table():
-        print(c)
-    
-    
     def get_auth_codes_table(self):
-        return self.auth_codes
+        return self.auth_codes  
+    
+    for users in get_auth_codes_table():
+        print(users)
+  
+
+CD = CodeGenerator(1)
+print(CD.generate_code())
+
     
     
     # create table auth_codes (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, user_id INT NOT NULL, code VARCHAR(6) NOT NULL, used TINYINT(1) DEFAULT 0 NOT NULL);
@@ -51,7 +49,7 @@ class CodeGenerator:
         
 
         
-# CD = CodeGenerator(1)
+
 
 # for c in CD.auth_codes:
 #     print(c)
