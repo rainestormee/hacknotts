@@ -8,14 +8,20 @@ class CodeGenerator:
     def __init__(self, ID):
         self.ID = ID
         try:
-            db_connect = mysql.connector.connect(user="root", password="alexandre", host="127.0.0.1", database="hacknotts")
-            cursor = db_connect.cursor()
-            cursor.execute("SELECT * FROM auth_codes")
-            self.auth_codes = cursor.fetchall()
-            self.target_user = self.auth_codes.index(ID)
+            self.db_connect = mysql.connector.connect(user="root", password="alexandre", host="127.0.0.1", database="hacknotts")
+            self.cursor = self.db_connect.cursor()
+            self.cursor.execute("SELECT * FROM auth_codes")
+            self.auth_codes = self.cursor.fetchall()
+            self.target_user = self.auth_codes.index(ID + 1)
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
-        #    self.generated_code = create_code()
+
+    def get_auth_codes_table(self):
+        return self.auth_codes
+
+    def used_code(self, code):
+        if code in self.target_user[2]:
+            return True
 
     def generate_code(self):
         r = random()
@@ -24,21 +30,41 @@ class CodeGenerator:
             rand_num = r.randint(0, 9)
             code += str(rand_num)
         return code
+    
+    def set_auth_code(self):
+        code = self.generate_code()
+        already_used = self.used_code(code)
+        if not already_used:
+            return code
+        else:
+            while already_used:
+                code = self.generate_code()
+            return code
 
-    def check_code(self, code):
-        if code in self.target_user[2]:
-            return False
-
-    def get_auth_codes_table(self):
-        return self.auth_codes
-
-
+    def update_auth_code(self):
+        code = self.set_auth_code()
+        ID = self.target_user
+        to_execute = '''
+                UPDATE hacknotss.auth_codes
+                SET code = %s
+                WHERE id = %s
+                location = "UPDATE auth_codes SET code = " + str(self.target_user)
+                '''
+        val = (code, ID)
+        try: 
+            self.cursor.execute(to_execute, val)
+            self.db_connect.commit
+        except (mysql.connector.errorcode):
+            print("Syntax Wrong")
+            
+            
+            
+            
 if __name__ == "__main__":
     CD = CodeGenerator(1)
-    print(CD.generate_code())
+    CD.update_auth_code()
     for users in CD.get_auth_codes_table():
         print(users)
-
 
 # create table auth_codes (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, user_id INT NOT NULL, code VARCHAR(6) NOT NULL, used TINYINT(1) DEFAULT 0 NOT NULL);
 
