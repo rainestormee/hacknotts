@@ -11,8 +11,8 @@ class CodeGenerator:
             db_connect = mysql.connector.connect(user="root", password="alexandre", host="127.0.0.1", database="hacknotts")
             cursor = db_connect.cursor()
             cursor.execute("SELECT * FROM auth_codes")
-            auth_codes = cursor.fetchall()
-            self.target_user = auth_codes.index(ID)
+            self.auth_codes = cursor.fetchall()
+            self.target_user = self.auth_codes.index(ID)
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
         #    self.generated_code = create_code()
