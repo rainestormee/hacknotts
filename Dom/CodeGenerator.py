@@ -21,9 +21,6 @@ class CodeGenerator:
     
     for u in users:
         print(u)
-    
-    #users = cursor.execute("QUERY", (auth_codes, c))
-
 
 
 
