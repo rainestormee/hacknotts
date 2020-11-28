@@ -12,7 +12,7 @@ class CodeGenerator:
             self.cursor = self.db_connect.cursor()
             self.cursor.execute("SELECT * FROM auth_codes")
             self.auth_codes = self.cursor.fetchall()
-            self.target_user = self.auth_codes.index(ID - 1)
+            self.target_user = self.auth_codes.index(ID)
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
 
