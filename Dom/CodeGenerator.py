@@ -9,7 +9,7 @@ class CodeGenerator:
     dbconnect = mysql.connector.connect(user = "root", password = "alexandre", host = "127.0.0.1", database = "hacknotts")
     cursor = dbconnect.cursor()
    
-    cursor.execute("SELECT * FROM users WHERE")
+    cursor.execute("SELECT * FROM users")
     
     users = cursor.fetchall()
     
