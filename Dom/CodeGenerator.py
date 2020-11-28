@@ -67,7 +67,7 @@ class CodeGenerator:
             
 if __name__ == "__main__":
     CD = CodeGenerator(1)
-    #CD.update_auth_code()
+    CD.update_auth_code()
     for user in CD.auth_codes:
         print(str(user) + "\n" + str(user[0]) + ", " + str(user[3]))
         
