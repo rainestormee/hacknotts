@@ -8,7 +8,7 @@ class CodeGenerator:
         
     dbconnect = mysql.connector.connect(user = "root", password = "alexandre", host = "127.0.0.1", database = "hacknotts")
     cursor = dbconnect.cursor()
-    cursor.execute("SHOW TABLES")
+    #cursor.execute("SHOW TABLES")
     
     for c in cursor:
         print(c)
