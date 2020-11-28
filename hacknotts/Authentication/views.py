@@ -21,7 +21,8 @@ def verification(request):
         if form.is_valid():
             authCodeRecieved = form.cleaned_data['auth code']
             if authCodeRecieved == authCode:
-                request.user.
+                # request.user.
+                print("shh")
             return HttpResponseRedirect('/thanks/')
     # if a GET (or any other method) we'll create a blank form
     else:
