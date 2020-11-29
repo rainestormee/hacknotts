@@ -47,8 +47,10 @@
                     data: [
                         [
                             ['Outgoing', 'Amount'],
-                            ['Playstation', 100000],
-                            ['Tescos', 0.01]
+                            ["McFairbank", 56.66],
+                            ["CatShoes", 50.48],
+                            ["Masalas", 111],
+                            ["Capital Two", 222]
                         ],
                         [
                             ['Breakdown for Playstation', 'Amount'],
@@ -74,6 +76,8 @@
                 }
             }
 
+            let successfulTrans = {};
+
             transactionsList.forEach(transaction => {
                 console.log(transaction[0] + " " + transaction[1]);
                 console.log(transaction[4]);
@@ -83,6 +87,7 @@
                 }
                 console.log(new Array(categories[cat]["data"][0]));
                 categories[cat]["data"][0] = new Array(categories[cat]["data"][0]).push([transaction[0], transaction[1]]);
+                // if (successfulTrans[])
             });
 
             // Optional; add a title and set the width and height of the chart
