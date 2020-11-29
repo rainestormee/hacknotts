@@ -36,7 +36,7 @@ class CodeGenerator:
             client.messages.create(
                 to = '+447579065474', #self.phone_number,
                 from_ = messaging_sid,
-                body = f"Authorization Code: {the_body}"
+                body = (f"Authorization Code: {the_body}")
                 )
             
         except client.TwilioRestException as err:
