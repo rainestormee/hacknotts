@@ -53,8 +53,8 @@ class CodeGenerator:
             cursor.execute(("UPDATE hacknotss.auth_codes SET code = %s WHERE id = %s location = UPDATE auth_codes SET code = " + str(self.target_user[2])), val)
             self.db_connect.commit
             
-        except:
-            print("Syntax Wrong")
+        except mysql.connector.Error as err:
+            print(f"An error: {err}")
             
 if __name__ == "__main__":
     CD = CodeGenerator(1)
