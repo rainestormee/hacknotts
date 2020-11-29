@@ -27,9 +27,9 @@ class CodeGenerator:
             print("Could not connect to database.", file=sys.stderr)
             
     def send_message(self):
-        account_sid = os.environ.get('TWILIO_ACC_SID')
-        auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
-        messaging_sid = os.environ.get('MESSAGING_SERVICE_SID')
+        account_sid = 'AC981838466c123165f5a99c5913488181'
+        auth_token = 'f33080514f1b3e9cd3b7c6e6dc92748b'
+        messaging_sid = 'f33080514f1b3e9cd3b7c6e6dc92748b'
         try:            
             client = Client(account_sid, auth_token)
             client.messages.create(
@@ -95,12 +95,12 @@ if __name__ == "__main__":
     print(CD.get_auth_code())
     CD.update_auth_code()
     print("\n" + str(CD.get_auth_code()))
-    # CD.send_message()
+    CD.send_message()
    
-    account_sid = os.environ['TWILIO_ACC_SID']
-    auth_token = os.environ['TWILIO_AUTH_TOKEN']
-    messaging_sid = os.environ['MESSAGING_SERVICE_SID']
-    print(account_sid, auth_token, messaging_sid) 
+    # account_sid = os.environ['TWILIO_ACC_SID']
+    # auth_token = os.environ['TWILIO_AUTH_TOKEN']
+    # messaging_sid = os.environ['MESSAGING_SERVICE_SID']
+    # print(account_sid, auth_token, messaging_sid) 
    
     cursor = CD.db_connect.cursor(buffered=True)
     cursor.execute("SELECT * FROM auth_codes;")
