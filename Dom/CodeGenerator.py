@@ -1,21 +1,26 @@
 #!/usr/bin/python3
 import mysql.connector
 import random, sys
-#from twilio.rest import Client
+# from twilio.rest import Client
 
 class CodeGenerator:
 
     def __init__(self, ID):
         self.ID = ID
         try:
+            #Setting Up the 'auth_codes' access
             self.db_connect = mysql.connector.connect(user="root", password="alexandre", host="127.0.0.1", database="hacknotts")
             cursor = self.db_connect.cursor(buffered=True)
             cursor.execute("SELECT * FROM auth_codes;")
             self.auth_codes = cursor.fetchall()
             self.target_user = self.auth_codes[ID-1]
-            #for (codeid, userid, code, used) in self.auth_codes:
-            #    print(codeid, code)
-
+            
+            #Setting Up the 'users' access
+            cursor = self.db_connect.cursor(buffered=True)
+            self.user = cursor.execute(f"SELECT * FROM users WHERE id = {self.ID};")
+            print(self.user)
+            self.phone_number = self.user[3]
+            
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
             
@@ -24,7 +29,8 @@ class CodeGenerator:
     
     # def send_message(account_sid, auth_token):
     #     client = Client(account_sid, auth_token)
-        
+    #     client.messages.create(
+            
 
 
     def get_auth_codes_table(self):
