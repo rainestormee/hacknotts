@@ -37,8 +37,8 @@ class CodeGenerator:
                 from_ = messaging_sid,
                 body = "Authorization Code: " + str(self.get_auth_code())
                 )
-        except:
-            print("Messaging Error")
+        except client.TwilioRestException as err:
+            print(err)
             
     #Gets the latest authorization code assoisiated with this instance
     def get_auth_code(self):
