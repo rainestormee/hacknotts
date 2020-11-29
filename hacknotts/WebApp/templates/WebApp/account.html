@@ -114,11 +114,12 @@
                 let chart = new google.visualization.PieChart(document.getElementById(p));
                 let data = new google.visualization.arrayToDataTable(categories[p]["data"][0]);
                 if (p === "outgoing") {
-                    let pushh = [['Outgoing', 'Amoung']];
+                    let pushh = [['Outgoing', 'Amount']];
                     Object.keys(successfulTrans).map(a => pushh.push([a, successfulTrans[a]]));
                     console.log(pushh);
                     data = new google.visualization.arrayToDataTable(pushh);
                 }
+                data.sort([{column: 1}]);
                 chart.draw(data, options);
                 google.visualization.events.addListener(chart, 'select', () => {
                     const selectedItem = chart.getSelection()[0];
