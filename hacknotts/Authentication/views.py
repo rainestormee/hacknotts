@@ -33,20 +33,16 @@ def verification(request):
     else:
         account_sid = 'AC981838466c123165f5a99c5913488181'
         auth_token = 'f33080514f1b3e9cd3b7c6e6dc92748b'
-        messaging_sid = '+447477579378'  # 'PN77be9d18bceff01b2e184040f98c516e'
+        messaging_sid = '+447723412253'  # 'PN77be9d18bceff01b2e184040f98c516e'
         accounts = bank_account.objects.filter(user=request.user)
         for account in accounts:
             the_body = str(account.authCode)
-        try:
             client = Client(account_sid, auth_token)
             client.messages.create(
-                to='+447477579378',  # self.phone_number,
+                to=str(account.telephoneNumber),
                 from_=messaging_sid,
                 body=(f"Authorization Code: {the_body}")
             )
-
-        except Client.TwilioRestException as err:
-            print(err)
 
         form = authCodeForm()
 
