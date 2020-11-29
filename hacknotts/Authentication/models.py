@@ -6,4 +6,4 @@ class bank_account(models.Model):
     user = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
     verified = models.BooleanField()
     accountID = models.IntegerField()
-    TelephoneNumber = models.IntegerField()
+    telephoneNumber = models.IntegerField()
