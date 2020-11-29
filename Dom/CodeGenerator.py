@@ -20,7 +20,7 @@ class CodeGenerator:
             cursor.execute(f"SELECT * FROM users;")
             self.users = cursor.fetchall()
             self.target_user = self.users[ID-1]
-            self.phone_number = self.target_user[3]
+            self.phone_number = str(self.target_user[3])
             print(self.phone_number)
 
         except mysql.connector.InterfaceError:
