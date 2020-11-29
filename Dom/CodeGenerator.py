@@ -13,14 +13,15 @@ class CodeGenerator:
             cursor = self.db_connect.cursor(buffered=True)
             cursor.execute("SELECT * FROM auth_codes;")
             self.auth_codes = cursor.fetchall()
-            self.target_user = self.auth_codes[ID-1]
+            self.target_user_ac = self.auth_codes[ID-1]
             
             #Setting Up the 'users' access
             cursor = self.db_connect.cursor(buffered=True)
-            self.user = cursor.execute(f"SELECT * FROM users WHERE id = {self.ID};")
-            print(self.user)
+            cursor.execute(f"SELECT * FROM users;")
+            self.users = cursor.fetchall()
+            self.target_user = self.users[ID-1]
             self.phone_number = self.user[3]
-            
+            print(self.phone_number)
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
             
@@ -38,7 +39,7 @@ class CodeGenerator:
 
 
     def used_code(self, code):
-        if code in self.target_user[2]:
+        if code in self.target_user_ac[2]:
             return True
 
     def generate_code(self):
