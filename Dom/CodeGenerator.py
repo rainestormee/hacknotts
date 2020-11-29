@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import mysql.connector
 import random, sys, os
-import twilio
 from twilio.rest import Client
 
 class CodeGenerator:
@@ -27,16 +26,18 @@ class CodeGenerator:
             print("Could not connect to database.", file=sys.stderr)
             
     def send_message(self):
-        account_sid = os.environ.get('TWILIO_ACC_SID')
-        auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
-        messaging_sid = os.environ.get('MESSAGING_SERVICE_SID')
+        account_sid = 'AC981838466c123165f5a99c5913488181'
+        auth_token = 'f33080514f1b3e9cd3b7c6e6dc92748b'
+        messaging_sid = 'f33080514f1b3e9cd3b7c6e6dc92748b'
+        the_body = self.get_auth_code()
         try:            
             client = Client(account_sid, auth_token)
             client.messages.create(
-                to = os.environ.get('MY_PHONE_NUMBER'), #self.phone_number,
+                to = self.phone_number,
                 from_ = messaging_sid,
-                body = "Authorization Code: " + str(self.get_auth_code())
+                body = f"Authorization Code: {the_body}"
                 )
+            
         except client.TwilioRestException as err:
             print(err)
             
@@ -96,9 +97,8 @@ if __name__ == "__main__":
     CD.update_auth_code()
     print("\n" + str(CD.get_auth_code()))
     CD.send_message()
+   
     cursor = CD.db_connect.cursor(buffered=True)
     cursor.execute("SELECT * FROM auth_codes;")
     upd_auth_codes = cursor.fetchall()
     print(upd_auth_codes)
-    #for user in CD.auth_codes:
-     #   print(__name__ + "\n" + str(user) + "\n" + str(user[0]) + ", " + str(user[2]))
