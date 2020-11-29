@@ -12,11 +12,9 @@ class CodeGenerator:
             cursor = self.db_connect.cursor(buffered=True)
             cursor.execute("SELECT * FROM auth_codes;")
             self.auth_codes = cursor.fetchall()
-            #self.target_user = [user for user in self.auth_codes if user[0] == ID]
             self.target_user = self.auth_codes[ID-1]
-            print(self.target_user)
-            for (codeid, userid, code, used) in self.auth_codes:
-                print(codeid, code)
+            #for (codeid, userid, code, used) in self.auth_codes:
+            #    print(codeid, code)
 
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
@@ -60,15 +58,13 @@ class CodeGenerator:
             cursor = self.db_connect.cursor(buffered=True)
             cursor.execute(to_execute, val)
             self.db_connect.commit
-        except:
+        except(error):
+            print(error)
             print("Syntax Wrong")
-            
-            
-            
             
 if __name__ == "__main__":
     CD = CodeGenerator(1)
-    #CD.update_auth_code()
+    CD.update_auth_code()
     for user in CD.auth_codes:
         print(__name__ + "\n" + str(user) + "\n" + str(user[0]) + ", " + str(user[2]))
         
