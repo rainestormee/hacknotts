@@ -26,20 +26,19 @@ class CodeGenerator:
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
             
-    account_sid = os.environ[TWILIO_ACC_SID]
-    auth_token = os.environ[TWILIO_AUTH_TOKEN]
-    messaging_sid = os.environ[MESSAGING_SERVICE_SID]
-    
-    def send_message(self, account_sid, auth_token, messaging_sid):
-        try:
+    def send_message(self):
+        account_sid = os.environ['TWILIO_ACC_SID']
+        auth_token = os.environ['TWILIO_AUTH_TOKEN']
+        messaging_sid = os.environ['MESSAGING_SERVICE_SID']
+        try:            
             client = Client(account_sid, auth_token)
             message = client.messages.create(
                 to = self.phone_number,
                 from_ = messaging_sid,
-                body = "Authorization Code: " + str(get_auth_code())
+                body = "Authorization Code: " + str(self.get_auth_code())
                 )
-        except twilioError:
-            print(twilioError)
+        except:
+            print("Messaging Error")
             
     #Gets the latest authorization code assoisiated with this instance
     def get_auth_code(self):
