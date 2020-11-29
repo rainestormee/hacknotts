@@ -15,9 +15,7 @@ class CodeGenerator:
             #self.target_user = [user for user in self.auth_codes if user[0] == ID]
             self.target_user = self.auth_codes[ID-1]
             print(self.target_user)
-           # for (codeid, userid, code, used) in self.auth_codes:
-           #     print(codeid, code)
-            for (codeid, userid, code, used) in self.target_user:
+            for (codeid, userid, code, used) in self.auth_codes:
                 print(codeid, code)
 
         except mysql.connector.InterfaceError:
@@ -72,7 +70,7 @@ if __name__ == "__main__":
     CD = CodeGenerator(1)
     #CD.update_auth_code()
     for user in CD.auth_codes:
-        print(str(user) + "\n" + str(user[0]) + ", " + str(user[3]))
+        print(__name__ + "\n" + str(user) + "\n" + str(user[0]) + ", " + str(user[3]))
         
 
 # create table auth_codes (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, user_id INT NOT NULL, code VARCHAR(6) NOT NULL, used TINYINT(1) DEFAULT 0 NOT NULL);
