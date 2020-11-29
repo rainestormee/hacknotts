@@ -29,9 +29,10 @@ class CodeGenerator:
 
     def generate_code(self):
         code = ""
-        for i in range(5):
+        for i in range(6):
             rand_num = random.randint(0, 9)
             code += str(rand_num)
+            code.zfill(6)
         return code
     
     def set_auth_code(self):
@@ -65,24 +66,3 @@ if __name__ == "__main__":
     print(upd_auth_codes)
     #for user in CD.auth_codes:
      #   print(__name__ + "\n" + str(user) + "\n" + str(user[0]) + ", " + str(user[2]))
-        
-
-# create table auth_codes (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, user_id INT NOT NULL, code VARCHAR(6) NOT NULL, used TINYINT(1) DEFAULT 0 NOT NULL);
-
-
-# cursor.execute("SELECT * FROM users")
-
-# users = cursor.fetchall()
-
-# for u in users:
-#     print(u)
-
-
-# for c in CD.auth_codes:
-#     print(c)
-
-
-# check auth_codes for the id
-# generate a code for the id
-# check if the code is already use
-# if not, insert the code into the auth_codes[2] (which is code)
