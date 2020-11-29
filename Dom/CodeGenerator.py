@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import mysql.connector
-import random, sys
+import random, sys, os
 import twilio
 from twilio.rest import Client
 
