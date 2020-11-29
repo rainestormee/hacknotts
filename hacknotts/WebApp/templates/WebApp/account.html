@@ -85,10 +85,15 @@
                 if (cat === "successful") {
                     cat = "outgoing";
                 }
-                console.log(new Array(categories[cat]["data"][0]));
-                categories[cat]["data"][0] = new Array(categories[cat]["data"][0]).push([transaction[0], transaction[1]]);
-                // if (successfulTrans[])
+                // console.log(new Array(categories[cat]["data"][0]));
+                // categories[cat]["data"][0] = new Array(categories[cat]["data"][0]).push([transaction[0], transaction[1]]);
+                if (successfulTrans[transaction[0]] == null) {
+                    successfulTrans[transaction[0]] = transaction[1];
+                } else {
+                    successfulTrans[transaction[0]] += transaction[1];
+                }
             });
+            console.log(successfulTrans);
 
             // Optional; add a title and set the width and height of the chart
             const options = {
@@ -108,6 +113,12 @@
             Object.keys(categories).forEach(p => {
                 let chart = new google.visualization.PieChart(document.getElementById(p));
                 let data = new google.visualization.arrayToDataTable(categories[p]["data"][0]);
+                if (p === "outgoing") {
+                    let pushh = [['Outgoing', 'Amoung']];
+                    Object.keys(successfulTrans).map(a => pushh.push([a, successfulTrans[a]]));
+                    console.log(pushh);
+                    data = new google.visualization.arrayToDataTable(pushh);
+                }
                 chart.draw(data, options);
                 google.visualization.events.addListener(chart, 'select', () => {
                     const selectedItem = chart.getSelection()[0];
