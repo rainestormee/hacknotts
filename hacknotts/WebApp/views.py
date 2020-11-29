@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
+import json
+
 from .api import *
 from django.apps import apps
 
@@ -34,7 +36,9 @@ def index(request):
             transaction_list.append(transaction['status'])
             transactions_list.append(transaction_list)
 
-        context = {'transactions_list':transactions_list}
+        json_list = json.dumps(transactions_list)
+
+        context = {'json_list':json_list}
     return HttpResponse(template.render(context, request))
 
 
