@@ -32,12 +32,12 @@ class CodeGenerator:
     
     def send_message(self, account_sid, auth_token, messaging_sid):
         try:
-        client = Client(account_sid, auth_token)
-        message = client.messages.create(
-            to = self.phone_number,
-            from_ = messaging_sid,
-            body = "Authorization Code: " + str(get_auth_code())
-            )
+            client = Client(account_sid, auth_token)
+            message = client.messages.create(
+                to = self.phone_number,
+                from_ = messaging_sid,
+                body = "Authorization Code: " + str(get_auth_code())
+                )
         except twilioError:
             print(twilioError)
             
