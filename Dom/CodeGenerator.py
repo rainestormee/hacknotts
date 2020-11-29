@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import mysql.connector
 import random, sys
-from twilio.rest import Client
+#from twilio.rest import Client
 
 class CodeGenerator:
 
