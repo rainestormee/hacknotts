@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import mysql.connector
 import random, sys
-# from twilio.rest import Client
+from twilio.rest import Client
 
 class CodeGenerator:
 
@@ -18,6 +18,14 @@ class CodeGenerator:
 
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
+            
+    # account_sid = os.environ["AC981838466c123165f5a99c5913488181"]
+    # auth_token = os.environ["3ccf69ca542b8cbf33a1986ce759b4bf"]
+    
+    # def send_message(account_sid, auth_token):
+    #     client = Client(account_sid, auth_token)
+        
+
 
     def get_auth_codes_table(self):
         return self.auth_codes
@@ -48,7 +56,7 @@ class CodeGenerator:
 
     def update_auth_code(self):
         code = self.set_auth_code()
-        ID = self.target_user[0]
+        ID = ID = self.ID
         
         try: 
             cursor = self.db_connect.cursor(buffered=True)
@@ -58,6 +66,7 @@ class CodeGenerator:
         except mysql.connector.Error as err:
             print(f"An error: {err}")
             
+    
 if __name__ == "__main__":
     CD = CodeGenerator(1)
     CD.update_auth_code()
