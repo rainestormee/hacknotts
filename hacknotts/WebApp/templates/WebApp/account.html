@@ -46,6 +46,10 @@
                             ['Outgoing', 'Amount'],
                             ['Playstation', 100000],
                             ['Tescos', 0.01]
+                        ],
+                        [
+                            ['Breakdown for Playstation', 'Amount'],
+                            ['Imagine paying for a monthly membership lul', 100000]
                         ]
                     ]
                 },
@@ -93,17 +97,25 @@
             };
 
             // Display the chart inside the <div> element with id="piechart"
-            ['incoming', 'outgoing', 'pending', 'declined'].forEach(p => {
+            Object.keys(categories).forEach(p => {
                 let chart = new google.visualization.PieChart(document.getElementById(p));
                 let data = new google.visualization.arrayToDataTable(categories[p]["data"][0]);
                 chart.draw(data, options);
                 google.visualization.events.addListener(chart, 'select', () => {
                     const selectedItem = chart.getSelection()[0];
                     if (selectedItem != null) {
-                        const value = data.getValue(selectedItem.row, 0);
-                        document.getElementById("breakdown-title").innerHTML = "Breakdown for " + p + " " + value;
-                        document.getElementById("breakdown").classList.remove("is-invisible", "is-hidden");
-                        chart.draw(new google.visualization.arrayToDataTable(categories[p]["data"][1 + selectedItem.row]), options);
+                        const depth = categories[p].depth;
+                        if (depth === 0) {
+                            const value = data.getValue(selectedItem.row, 0);
+                            document.getElementById("breakdown-title").innerHTML = "Breakdown for " + p + " " + value;
+                            document.getElementById("breakdown").classList.remove("is-invisible", "is-hidden");
+                            chart.draw(new google.visualization.arrayToDataTable(categories[p]["data"][1 + selectedItem.row]), options);
+                            categories[p].depth = 1;
+                        } else {
+                            document.getElementById("breakdown").classList.add("is-invisible", "is-hidden")
+                            chart.draw(new google.visualization.arrayToDataTable(categories[p]["data"][0]), options);
+                            categories[p].depth = 0;
+                        }
                     }
                 });
             })
