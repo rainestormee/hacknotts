@@ -21,6 +21,7 @@ class CodeGenerator:
             self.users = cursor.fetchall()
             self.target_user = self.users[ID-1]
             self.phone_number = self.target_user[3]
+            print(self.phone_number)
 
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
