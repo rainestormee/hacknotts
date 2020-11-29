@@ -33,12 +33,9 @@ class CodeGenerator:
         for i in range(6):
             rand_num = valid_digits[random.randint(0, 9)]
             print(rand_num)
-            # if rand_num == 0:
-                # code += "0"
-            # else:
             code += str(rand_num)
             
-        return code
+        return format(code, '010d')
     
     def set_auth_code(self):
         code = self.generate_code()
