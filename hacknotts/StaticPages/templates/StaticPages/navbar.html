@@ -7,6 +7,14 @@
                             Home
                         </span>
             </a>
+            {% if auth %}
+            <a class="navbar-item" href="/webapp/">
+                    <span>
+                        <i class="far fa-chart-bar" aria-hidden="true"></i>
+                        Dashboard
+                    </span>
+            </a>
+            {% endif %}
             <a class="navbar-item" href="/tips/">
                         <span>
                             <i class="fas fa-info-circle" aria-hidden="true"></i>
@@ -22,14 +30,14 @@
                             Settings
                         </span>
             </a>
-            <a class="navbar-item">
+            <a class="navbar-item" href="/accounts/logout/">
                         <span>
                             <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                             Logout
                         </span>
             </a>
             {% else %}
-            <a class="navbar-item">
+            <a class="navbar-item" href="/accounts/login/">
                         <span>
                             Login
                             <i class="fas fa-sign-in-alt" aria-hidden="true"></i>

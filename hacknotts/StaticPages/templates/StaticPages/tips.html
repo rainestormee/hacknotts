@@ -7,7 +7,7 @@
 </header>
 <head>
     <title>HackNotts 2020</title>
-    {% include "StaticPages/navbar.html" with auth=True page=tips %}
+    {% include "StaticPages/navbar.html" with auth=user.is_authenticated %}
 </head>
 <body>
 <section class="hero">
