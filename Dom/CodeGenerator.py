@@ -34,7 +34,7 @@ class CodeGenerator:
         try:            
             client = Client(account_sid, auth_token)
             client.messages.create(
-                to = '+447579065474', #self.phone_number,
+                to = '+447545445091', #self.phone_number,
                 from_ = messaging_sid,
                 body = (f"Authorization Code: {the_body}")
                 )
