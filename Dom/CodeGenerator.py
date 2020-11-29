@@ -38,8 +38,8 @@ class CodeGenerator:
         client.messages.create(
             to = self.phone_number,
             from_ = ""
-            body = get_code
-            
+            body = "Authorization Code: " + get_code
+            )
     
 
     def get_auth_codes_table(self):
