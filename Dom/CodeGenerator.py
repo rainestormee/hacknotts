@@ -50,11 +50,10 @@ class CodeGenerator:
         val = (code, ID)
         try: 
             cursor = self.db_connect.cursor(buffered=True)
-            cursor.execute(("UPDATE hacknotss.auth_codes SET code = %s WHERE id = %s location = UPDATE auth_codes SET code = " + str(self.target_user)), val)
+            cursor.execute(("UPDATE hacknotss.auth_codes SET code = %s WHERE id = %s location = UPDATE auth_codes SET code = " + str(self.target_user[2])), val)
             self.db_connect.commit
             
-        except(error):
-            print(error)
+        except:
             print("Syntax Wrong")
             
 if __name__ == "__main__":
