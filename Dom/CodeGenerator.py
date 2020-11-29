@@ -32,7 +32,8 @@ class CodeGenerator:
     def get_code(self):
         cursor = self.db_connect.cursor(buffered=True)
         cursor.execute("SELECT * FROM auth_codes;")
-        return self.auth_codes[self.ID - 1][2]
+        code_in_db = cursor.fetchall()[self.ID - 1][2]
+        return code_in_db
     
     def send_message(self, account_sid, auth_token):
         client = Client(account_sid, auth_token)
