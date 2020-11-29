@@ -46,11 +46,11 @@ class CodeGenerator:
 
     def update_auth_code(self):
         code = self.set_auth_code()
-        ID = self.target_user
-        val = (code, ID)
+        ID = self.target_user[0]
+        
         try: 
             cursor = self.db_connect.cursor(buffered=True)
-            cursor.execute(("UPDATE hacknotss.auth_codes SET code = %s WHERE id = %s location = UPDATE auth_codes SET code = " + str(self.target_user[2])), val)
+            cursor.execute(f"UPDATE hacknotss.auth_codes SET code = {code} WHERE id = {ID})
             self.db_connect.commit
             
         except mysql.connector.Error as err:
