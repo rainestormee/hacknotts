@@ -29,7 +29,7 @@ class CodeGenerator:
     account_sid = "AC981838466c123165f5a99c5913488181"
     auth_token = "3ccf69ca542b8cbf33a1986ce759b4bf"
     
-    def get_code(self):
+    def get_auth_code(self):
         cursor = self.db_connect.cursor(buffered=True)
         cursor.execute("SELECT * FROM auth_codes;")
         code_in_db = cursor.fetchall()[self.ID - 1][2]
@@ -40,7 +40,7 @@ class CodeGenerator:
         client.messages.create(
             to = self.phone_number,
             from_ = "",
-            body = "Authorization Code: " + str(get_code()))
+            body = "Authorization Code: " + str(get_auth_code()))
     
     def get_auth_codes_table(self):
         return self.auth_codes
@@ -83,9 +83,9 @@ class CodeGenerator:
     
 if __name__ == "__main__":
     CD = CodeGenerator(1)
-    print(CD.get_code())
+    print(CD.get_auth_code())
     CD.update_auth_code()
-    print("\n" + str(CD.get_code()))
+    print("\n" + str(CD.get_auth_code()))
     cursor = CD.db_connect.cursor(buffered=True)
     cursor.execute("SELECT * FROM auth_codes;")
     upd_auth_codes = cursor.fetchall()
