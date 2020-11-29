@@ -26,8 +26,8 @@ class CodeGenerator:
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
             
-    account_sid = os.environ["AC981838466c123165f5a99c5913488181"]
-    auth_token = os.environ["3ccf69ca542b8cbf33a1986ce759b4bf"]
+    account_sid = "AC981838466c123165f5a99c5913488181"
+    auth_token = "3ccf69ca542b8cbf33a1986ce759b4bf"
     
     def get_code(self):
         cursor = self.db_connect.cursor(buffered=True)
@@ -41,10 +41,8 @@ class CodeGenerator:
             from_ = "",
             body = "Authorization Code: " + str(get_code()))
     
-
     def get_auth_codes_table(self):
         return self.auth_codes
-
 
     def used_code(self, code):
         if code in self.target_user_ac[2]:
