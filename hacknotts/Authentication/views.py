@@ -50,14 +50,11 @@ def bank_account_create(request):
             print(apiResult['phoneNumber'])
             print(form.cleaned_data['telephoneNumber'])
             if apiResult['phoneNumber'] == ("+" + str(form.cleaned_data['telephoneNumber'])):
-                random_number = random.randint(0, 16777215)
-                hex = str(hex(random_number))
-                authCode = '#' + hex
                 bank_account_instance = bank_account.objects.create(user = request.user,
                                                                     accountID = form.cleaned_data['accountID'],
                                                                     verified=False,
                                                                     telephoneNumber = form.cleaned_data['telephoneNumber'],
-                                                                    authCode = authCode)
+                                                                    authCode = random.randint(0, 99999))
                 bank_account_instance.save()
                 return HttpResponseRedirect('/accounts/verification/')
 
