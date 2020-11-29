@@ -92,9 +92,9 @@ class CodeGenerator:
     
 if __name__ == "__main__":
     CD = CodeGenerator(1)
-    print(CD.get_auth_code())
+    # print(CD.get_auth_code())
     CD.update_auth_code()
-    print("\n" + str(CD.get_auth_code()))
+    # print("\n" + str(CD.get_auth_code()))
     CD.send_message()
    
     # cursor = CD.db_connect.cursor(buffered=True)
