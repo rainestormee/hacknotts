@@ -35,7 +35,7 @@ class CodeGenerator:
             print(rand_num)
             code += str(rand_num)
             
-        return format(code, '010d')
+        return format(code, '07d')
     
     def set_auth_code(self):
         code = self.generate_code()
