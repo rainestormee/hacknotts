@@ -3,7 +3,7 @@
 <header>
     <script defer src="http://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https//cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         // Load google charts
@@ -12,7 +12,31 @@
 
         // Draw the chart and set the chart values
         function drawChart() {
-            var data = google.visualization.arrayToDataTable([
+
+            var categories = {
+                incoming: {
+                    depth: 0,
+                    data: [
+                        [
+                            ['Incoming', 'Amount'],
+                            ['Shrek Inc', 1000],
+                            ['HackNotts', 1337],
+                            ['Twilio API', 100]
+                        ]
+                    ]
+                },
+                outgoing: {
+                    depth: 0
+                },
+                pending: {
+                    depth: 0
+                },
+                declined: {
+                    depth: 0
+                }
+            }
+
+            const data = google.visualization.arrayToDataTable([
                 ['Task', 'Hours per Day'],
                 ['Work', 8],
                 ['Eat', 2],
@@ -21,14 +45,43 @@
                 ['Sleep', 8]
             ]);
 
+            console.log(data.getValue(1, 1))
+
             // Optional; add a title and set the width and height of the chart
-            var options = {'width': 550, 'height': 400, 'backgroundColor': 'transparent'};
+            const options = {
+                width: 550,
+                height: 400,
+                backgroundColor: 'transparent',
+                pieHole: 0.4,
+                color: 'white',
+                animation: {
+                    duration: 1000,
+                    easing: 'in'
+                },
+                pieSliceText: 'value'
+            };
 
             // Display the chart inside the <div> element with id="piechart"
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-            chart.draw(data, options);
-            var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
-            chart2.draw(data, options);
+            ['incoming', 'outgoing', 'pending', 'declined'].forEach(p => {
+                let chart = new google.visualization.PieChart(document.getElementById(p));
+                let data = new google.visualization.arrayToDataTable(categories[p]["data"][0]);
+                chart.draw(data, options);
+                google.visualization.events.addListener(chart, 'select', () => {
+                    const selectedItem = chart.getSelection()[0];
+                    if (selectedItem != null) {
+                        const value = data.getValue(selectedItem.row, 0);
+                        document.getElementById("breakdown-title").innerHTML = "Breakdown for " + p + " " + value;
+                        document.getElementById("breakdown").classList.remove("is-invisible", "is-hidden");
+                        chart.draw(new google.visualization.arrayToDataTable([
+                            ['Subcategory', 'Subcategory for ' + p],
+                            ['Sub 1', 8],
+                            ['Sub 2', 4],
+                            ['Sub 3', 2],
+                            ['Sub 4', 8]
+                        ]), options);
+                    }
+                });
+            })
         }
     </script>
 </header>
@@ -52,13 +105,32 @@
 <section class="section">
     <div class="container">
         <div class="columns">
-            <div class="column notification is-info" style="height: 100%;">
+            <div class="column notification is-success" style="height: 100%;">
                 <p class="subtitle">Incoming</p>
-                <div id="piechart"></div>
+                <div id="incoming"></div>
             </div>
-            <div class="column box notification is-warning" style="height: 100%;">
+            <div class="column box notification is-danger" style="height: 100%;">
                 <p class="subtitle">Outgoing</p>
-                <div id="piechart2"></div>
+                <div id="outgoing"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section is-invisible is-hidden" id="breakdown">
+    <div class="container">
+        <h1 class="title" id="breakdown-title">Breakdown</h1>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column notification is-warning" style="height: 100%;">
+                <p class="subtitle">Pending</p>
+                <div id="pending"></div>
+            </div>
+            <div class="column box notification is-gray" style="height: 100%;">
+                <p class="subtitle">Declined</p>
+                <div id="declined"></div>
             </div>
         </div>
     </div>
