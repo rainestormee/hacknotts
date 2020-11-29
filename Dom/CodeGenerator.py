@@ -30,7 +30,6 @@ class CodeGenerator:
         account_sid = os.environ.get('TWILIO_ACC_SID')
         auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
         messaging_sid = os.environ.get('MESSAGING_SERVICE_SID')
-        print(account_sid, auth_token, messaging_sid)
         try:            
             client = Client(account_sid, auth_token)
             client.messages.create(
@@ -96,8 +95,13 @@ if __name__ == "__main__":
     print(CD.get_auth_code())
     CD.update_auth_code()
     print("\n" + str(CD.get_auth_code()))
-    CD.send_message()
-    
+    # CD.send_message()
+   
+    account_sid = os.environ.get('TWILIO_ACC_SID')
+    auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
+    messaging_sid = os.environ.get('MESSAGING_SERVICE_SID')
+    print(account_sid, auth_token, messaging_sid) 
+   
     cursor = CD.db_connect.cursor(buffered=True)
     cursor.execute("SELECT * FROM auth_codes;")
     upd_auth_codes = cursor.fetchall()
