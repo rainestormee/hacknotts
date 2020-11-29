@@ -13,11 +13,6 @@ from .api import ApiGet
 # Create your views here.
 @login_required
 def verification(request):
-    random_number = random.randint(0, 16777215)
-    hex = str(hex(random_number))
-    authCode = '#' + hex
-
-    print(authCode)
 
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -26,12 +21,17 @@ def verification(request):
         # check whether it's valid:
         if form.is_valid():
             authCodeRecieved = form.cleaned_data['auth code']
-            if authCodeRecieved == authCode:
-                 request.user
+            for account in bank_account.objects.filter(user=request.user):
+                if authCodeRecieved == account.authCode:
+                    account.verified = True
+                    account.save()
             return HttpResponseRedirect(' ')
 
     # if a GET (or any other method) we'll create a blank form
     else:
+
+        # space for twilio code
+
         form = authCodeForm()
 
     return render(request, 'name.html', {'form': form})
@@ -50,7 +50,14 @@ def bank_account_create(request):
             print(apiResult['phoneNumber'])
             print(form.cleaned_data['telephoneNumber'])
             if apiResult['phoneNumber'] == ("+" + str(form.cleaned_data['telephoneNumber'])):
-                bank_account_instance = bank_account.objects.create(user = request.user, accountID = form.cleaned_data['accountID'], verified=False, telephoneNumber = form.cleaned_data['telephoneNumber'])
+                random_number = random.randint(0, 16777215)
+                hex = str(hex(random_number))
+                authCode = '#' + hex
+                bank_account_instance = bank_account.objects.create(user = request.user,
+                                                                    accountID = form.cleaned_data['accountID'],
+                                                                    verified=False,
+                                                                    telephoneNumber = form.cleaned_data['telephoneNumber'],
+                                                                    authCode = authCode)
                 bank_account_instance.save()
                 return HttpResponseRedirect('/accounts/verification/')
 
