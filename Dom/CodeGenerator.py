@@ -59,8 +59,12 @@ class CodeGenerator:
 if __name__ == "__main__":
     CD = CodeGenerator(1)
     CD.update_auth_code()
-    for user in CD.auth_codes:
-        print(__name__ + "\n" + str(user) + "\n" + str(user[0]) + ", " + str(user[2]))
+    cursor = CD.db_connect.cursor(buffered=True)
+    cursor.execute("SELECT * FROM auth_codes;")
+    upd_auth_codes = cursor.fetchall()
+    print(upd_auth_codes)
+    #for user in CD.auth_codes:
+     #   print(__name__ + "\n" + str(user) + "\n" + str(user[0]) + ", " + str(user[2]))
         
 
 # create table auth_codes (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, user_id INT NOT NULL, code VARCHAR(6) NOT NULL, used TINYINT(1) DEFAULT 0 NOT NULL);
