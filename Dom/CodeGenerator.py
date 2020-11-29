@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import mysql.connector
-import random, sys, os
+import random, sys
 from twilio.rest import Client
 
 class CodeGenerator:
@@ -28,7 +28,7 @@ class CodeGenerator:
     def send_message(self):
         account_sid = 'AC981838466c123165f5a99c5913488181'
         auth_token = 'f33080514f1b3e9cd3b7c6e6dc92748b'
-        messaging_sid = 'f33080514f1b3e9cd3b7c6e6dc92748b'
+        messaging_sid = 'PNda6634efaf5bfe36825c0380f8793a70'
         the_body = self.get_auth_code()
         try:            
             client = Client(account_sid, auth_token)
