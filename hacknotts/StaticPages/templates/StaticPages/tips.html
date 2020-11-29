@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<header>
+    <script defer src="http://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+</header>
+<head>
+    <title>HackNotts 2020</title>
+    {% include "StaticPages/navbar.html" with auth=True page=tips %}
+</head>
+<body>
+<section class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Money Saving Tips!
+            </h1>
+            <h2 class="subtitle">
+                Get your finance in order!
+            </h2>
+        </div>
+    </div>
+</section>
+<section class="section is-info">
+    <div class="container">
+        <p>Some Tips</p>
+        <div class="content">
+            <ol type="1">
+                <li>Change bank accounts</li>
+                <li>INterest(ing)</li>
+                <li>Use our super cool website!!</li>
+            </ol>
+        </div>
+    </div>
+</section>
+</body>
+</html>
