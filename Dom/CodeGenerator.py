@@ -29,13 +29,14 @@ class CodeGenerator:
 
     def generate_code(self):
         code = ""
+        valid_digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         for i in range(6):
-            rand_num = random.randint(0, 9)
+            rand_num = valid_digits[random.randint(0, 9)]
             print(rand_num)
-            if rand_num == 0:
-                code += "0"
-            else:
-                code += str(rand_num)
+            # if rand_num == 0:
+                # code += "0"
+            # else:
+            code += str(rand_num)
             
         return code
     
