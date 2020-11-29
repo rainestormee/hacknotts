@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import mysql.connector
-import random, sys
+import random, sys, os
 import twilio
 from twilio.rest import Client
 
@@ -26,28 +26,35 @@ class CodeGenerator:
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
             
-    account_sid = "AC981838466c123165f5a99c5913488181"
-    auth_token = "3ccf69ca542b8cbf33a1986ce759b4bf"
-    
+    def send_message(self):
+        account_sid = os.environ.get('TWILIO_ACC_SID')
+        auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
+        messaging_sid = os.environ.get('MESSAGING_SERVICE_SID')
+        try:            
+            client = Client(account_sid, auth_token)
+            client.messages.create(
+                to = os.environ.get('MY_PHONE_NUMBER'), #self.phone_number,
+                from_ = messaging_sid,
+                body = "Authorization Code: " + str(self.get_auth_code())
+                )
+        except client.TwilioRestException as err:
+            print(err)
+            
+    #Gets the latest authorization code assoisiated with this instance
     def get_auth_code(self):
         cursor = self.db_connect.cursor(buffered=True)
         cursor.execute("SELECT * FROM auth_codes;")
         code_in_db = cursor.fetchall()[self.ID - 1][2]
-        return code_in_db
-    
-    def send_message(self, account_sid, auth_token):
-        client = Client(account_sid, auth_token)
-        client.messages.create(
-            to = self.phone_number,
-            from_ = "",
-            body = "Authorization Code: " + str(get_auth_code()))
+        return code_in_db    
     
     def get_auth_codes_table(self):
         return self.auth_codes
 
+
     def used_code(self, code):
         if code in self.target_user_ac[2]:
             return True
+
 
     def generate_code(self):
         code = ""
@@ -58,6 +65,7 @@ class CodeGenerator:
             
         return code.zfill(6)
     
+    
     def set_auth_code(self):
         code = self.generate_code()
         already_used = self.used_code(code)
@@ -67,6 +75,7 @@ class CodeGenerator:
             while already_used:
                 code = self.generate_code()
             return code
+
 
     def update_auth_code(self):
         code = self.set_auth_code()
@@ -86,6 +95,7 @@ if __name__ == "__main__":
     print(CD.get_auth_code())
     CD.update_auth_code()
     print("\n" + str(CD.get_auth_code()))
+    CD.send_message()
     cursor = CD.db_connect.cursor(buffered=True)
     cursor.execute("SELECT * FROM auth_codes;")
     upd_auth_codes = cursor.fetchall()
