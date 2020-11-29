@@ -90,14 +90,14 @@ class CodeGenerator:
             print(f"An error: {err}")
             
     
-if __name__ == "__main__":
-    CD = CodeGenerator(1)
-    # print(CD.get_auth_code())
-    CD.update_auth_code()
-    # print("\n" + str(CD.get_auth_code()))
-    CD.send_message()
+# if __name__ == "__main__":
+#     CD = CodeGenerator(1)
+#     # print(CD.get_auth_code())
+#     CD.update_auth_code()
+#     # print("\n" + str(CD.get_auth_code()))
+#     CD.send_message()
    
-    # cursor = CD.db_connect.cursor(buffered=True)
-    # cursor.execute("SELECT * FROM auth_codes;")
-    # upd_auth_codes = cursor.fetchall()
-    # print(upd_auth_codes)
+#     # cursor = CD.db_connect.cursor(buffered=True)
+#     # cursor.execute("SELECT * FROM auth_codes;")
+#     # upd_auth_codes = cursor.fetchall()
+#     # print(upd_auth_codes)
