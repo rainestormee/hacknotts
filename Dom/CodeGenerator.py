@@ -97,9 +97,9 @@ if __name__ == "__main__":
     print("\n" + str(CD.get_auth_code()))
     # CD.send_message()
    
-    account_sid = os.environ.get('TWILIO_ACC_SID')
-    auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
-    messaging_sid = os.environ.get('MESSAGING_SERVICE_SID')
+    account_sid = os.environ['TWILIO_ACC_SID']
+    auth_token = os.environ['TWILIO_AUTH_TOKEN']
+    messaging_sid = os.environ['MESSAGING_SERVICE_SID']
     print(account_sid, auth_token, messaging_sid) 
    
     cursor = CD.db_connect.cursor(buffered=True)
