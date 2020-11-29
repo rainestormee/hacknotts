@@ -50,7 +50,7 @@ class CodeGenerator:
         
         try: 
             cursor = self.db_connect.cursor(buffered=True)
-            cursor.execute(f"UPDATE hacknotss.auth_codes SET code = {code} WHERE id = {ID}")
+            cursor.execute(f"UPDATE hacknotts.auth_codes SET code = {code} WHERE id = {ID}")
             self.db_connect.commit
             
         except mysql.connector.Error as err:
