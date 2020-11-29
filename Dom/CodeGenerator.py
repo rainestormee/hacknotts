@@ -47,17 +47,12 @@ class CodeGenerator:
     def update_auth_code(self):
         code = self.set_auth_code()
         ID = self.target_user
-        to_execute = '''
-                UPDATE hacknotss.auth_codes
-                SET code = %s
-                WHERE id = %s
-                location = "UPDATE auth_codes SET code = " + str(self.target_user)
-                '''
         val = (code, ID)
         try: 
             cursor = self.db_connect.cursor(buffered=True)
-            cursor.execute(to_execute, val)
+            cursor.execute(("UPDATE hacknotss.auth_codes SET code = %s WHERE id = %s location = UPDATE auth_codes SET code = " + str(self.target_user)), val)
             self.db_connect.commit
+            
         except(error):
             print(error)
             print("Syntax Wrong")
