@@ -31,6 +31,7 @@ class CodeGenerator:
         code = ""
         for i in range(6):
             rand_num = random.randint(0, 9)
+            print(rand_num)
             code += str(rand_num)
             code.zfill(6)
         return code
