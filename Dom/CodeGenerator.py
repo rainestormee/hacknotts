@@ -20,7 +20,8 @@ class CodeGenerator:
             cursor.execute(f"SELECT * FROM users;")
             self.users = cursor.fetchall()
             self.target_user = self.users[ID-1]
-            self.phone_number = self.target_user[3]
+            self.phone_number = str(self.target_user[3])
+            print(self.phone_number)
 
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
@@ -28,14 +29,14 @@ class CodeGenerator:
     def send_message(self):
         account_sid = 'AC981838466c123165f5a99c5913488181'
         auth_token = 'f33080514f1b3e9cd3b7c6e6dc92748b'
-        messaging_sid = '447723412253'
-        the_body = self.get_auth_code()
+        messaging_sid = '+447723412253' #'PN77be9d18bceff01b2e184040f98c516e'
+        the_body = str(self.get_auth_code())
         try:            
             client = Client(account_sid, auth_token)
             client.messages.create(
-                to = self.phone_number,
+                to = '+447545445091', #self.phone_number,
                 from_ = messaging_sid,
-                body = f"Authorization Code: {the_body}"
+                body = (f"Authorization Code: {the_body}")
                 )
             
         except client.TwilioRestException as err:
