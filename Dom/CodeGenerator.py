@@ -21,7 +21,6 @@ class CodeGenerator:
             self.users = cursor.fetchall()
             self.target_user = self.users[ID-1]
             self.phone_number = str(self.target_user[3])
-            print(self.phone_number)
 
         except mysql.connector.InterfaceError:
             print("Could not connect to database.", file=sys.stderr)
@@ -62,7 +61,6 @@ class CodeGenerator:
         code = ""
         for i in range(6):
             rand_num = random.randint(0, 9)            
-            print(rand_num)
             code += str(rand_num)
             
         return code.zfill(6)
@@ -99,7 +97,7 @@ if __name__ == "__main__":
     print("\n" + str(CD.get_auth_code()))
     CD.send_message()
    
-    cursor = CD.db_connect.cursor(buffered=True)
-    cursor.execute("SELECT * FROM auth_codes;")
-    upd_auth_codes = cursor.fetchall()
-    print(upd_auth_codes)
+    # cursor = CD.db_connect.cursor(buffered=True)
+    # cursor.execute("SELECT * FROM auth_codes;")
+    # upd_auth_codes = cursor.fetchall()
+    # print(upd_auth_codes)
