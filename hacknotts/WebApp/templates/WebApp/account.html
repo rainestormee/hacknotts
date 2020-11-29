@@ -13,10 +13,10 @@
         // Draw the chart and set the chart values
         function drawChart() {
 
-            var transactionsList = {{transaction_list}};
+            let transactionsList = JSON.parse(document.getElementById("list_contents").innerText);
             console.log(transactionsList);
 
-            var categories = {
+            let categories = {
                 incoming: {
                     depth: 0,
                     data: [
@@ -74,16 +74,16 @@
                 }
             }
 
-            const data = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
-                ['Work', 8],
-                ['Eat', 2],
-                ['TV', 4],
-                ['Gym', 2],
-                ['Sleep', 8]
-            ]);
-
-            console.log(data.getValue(1, 1))
+            transactionsList.forEach(transaction => {
+                console.log(transaction[0] + " " + transaction[1]);
+                console.log(transaction[4]);
+                let cat = transaction[4].toLowerCase();
+                if (cat === "successful") {
+                    cat = "outgoing";
+                }
+                console.log(new Array(categories[cat]["data"][0]));
+                categories[cat]["data"][0] = new Array(categories[cat]["data"][0]).push([transaction[0], transaction[1]]);
+            });
 
             // Optional; add a title and set the width and height of the chart
             const options = {
@@ -122,7 +122,7 @@
                         }
                     }
                 });
-            })
+            });
         }
     </script>
 </header>
@@ -131,6 +131,9 @@
     {% include "StaticPages/navbar.html" with auth=True %}
 </head>
 <body>
+<section id="list_contents" class="is-hidden is-invisible">
+    {{json_list}}
+</section>
 <section class="section">
     <div class="container">
         <h1 class="title">Welcome Back, Ryan</h1>
